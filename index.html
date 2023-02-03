@@ -15,7 +15,7 @@
         <div class="range">
           <div class="range__header">
             <h3>Storage:</h3>
-            <span>100 GB</span>
+            <span> <strong class="range__storage-value">100 GB</strong> </span>
           </div>
           <div class="range__storage">
             <input 
@@ -23,15 +23,20 @@
                 type="range" 
                 name="range-storage" 
                 id="input-storage" 
-                min="0" max="100"
-                value="10"
+                min="0" max="1000"
+                step="1"
+                value="100"
             >
+          </div>
+          <div class="range_numbers">
+            <span>0</span>
+            <span>1000</span>
           </div>
         </div>
         <div class=" range">
           <div class="range__header">
             <h3>Transfer:</h3>
-            <span >400 GB</span>
+            <span> <strong class="range__transfer-value">400 GB</strong> </span>
           </div>
           <div class="range__trasfer">
             <input 
@@ -39,9 +44,14 @@
                 type="range" 
                 name="range-storage" 
                 id="input-transfer" 
-                min="0" max="100"
-                value="40"
+                min="0" max="1000"
+                step="1"
+                value="400"
             >
+          </div>
+          <div class="range_numbers">
+            <span>0</span>
+            <span>1000</span>
           </div>
         </div>
       </section-slider>
@@ -104,15 +114,29 @@
           </svg>
           </div>
         </div>
-        <div class="graph__value value">
-          <div class="value__company" style="width: 36%;"></div>
-          <div class="value__company" style="width: 76%;"></div>
-          <div class="value__company" style="width: 56%;"></div>
-          <div class="value__company" style="width: 46%;"></div>
+        <div class="graph__value">
+          <div class="graph__column">
+            <div class="value__backvlaze backvlaze graph__percent" style="width: 12%;"></div>
+            <span class="backvlaze__price graph__price">$ 11</span>
+          </div>
+          <div class="graph__column">
+            <div class="value__bunny bunny graph__percent" style="width: 5%;"></div>
+            <span class="bunny__price graph__price">$ 5</span>
+          </div>
+          <div class="graph__column">
+            <div class="value__scaleway scaleway graph__percent" style="width: 56%;"></div>
+            <span class="scaleway__price graph__price"></span>
+          </div>
+          <div class="graph__column">
+            <div class="value__vultr vultr graph__percent" style="width: 46%;"></div>
+            <span class="vultr__price graph__price"></span>
+          </div>
         </div>
       </section-graph>
     </main>
   </div>
+
+  <script src="./js/index.js"></script>
 
 </body>
 </html>
