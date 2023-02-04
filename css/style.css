@@ -68,14 +68,16 @@ main {
 
 
 .graph__company {
+  display: flex;
+  justify-content: space-between;
   width: 30%;
   padding: 1.5rem 0;
 }
 
-.company__block {
+.company__name {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.7rem;
 }
 
 .company__title h2 {
@@ -91,10 +93,11 @@ main {
   margin-bottom: 0.5rem;
 }
 
-.company__logo {
-  display: flex;
+.company__logo:not(:last-child) {
+  /* display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-evenly; */
+  margin-bottom: 2.3rem;
 }
 
 .radio-hidden {
@@ -158,4 +161,92 @@ main {
   margin-left: 0.5rem;
   display: flex;
   align-items: center;
+}
+
+
+
+
+/*  -------------------------------------------------  */
+/*  -------------------- Media ----------------------  */
+/*  -------------------------------------------------  */
+
+
+@media (max-width: 450px) {
+  main {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .section-range {
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .range {
+    width: 70%;
+  }
+
+  .range:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+
+
+  .section-graph {
+    flex-direction: column-reverse;
+  }
+
+
+  .graph__company {
+    margin: 0 auto;
+    width: 70%;
+    flex-direction: column-reverse;
+  }
+
+  .company__logos {
+    display: flex;
+    justify-content: space-between;
+    height: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .company__names {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 3rem 0 1rem;
+  }
+
+  .company__title_mb {
+    text-align: center;
+  }
+
+
+  .graph__value {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-end;
+    border-left: none;
+    border-bottom: 5px solid black;
+    height: 15rem;
+    padding: 0;
+
+  }
+
+  .graph__column {
+    width: 4rem;
+    margin-left: 0;
+    display: flex;
+    flex-direction: column-reverse;
+    height: 100%;
+  }
+
+  .graph__column:not(:last-child) {
+    margin-bottom: 0;
+  }
+
+  .graph__percent {
+    border: 2px solid #21bb57;
+    border-bottom: none;
+  }
 }

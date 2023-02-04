@@ -41,6 +41,10 @@ const backblazeColumnPrice = document.querySelector('.backvlaze__price'),
       scalewayColumnPrice = document.querySelector('.scaleway__price'),
       vultrColumnPrice = document.querySelector('.vultr__price');
 
+let screenWidth = window.screen.width < 450 ? 'height' : 'width';
+
+console.log( screenWidth );
+
 
 
 inputBunnyHDDValue.value = bunnyStorageHDDPrice;
@@ -114,6 +118,7 @@ function calcRange() {
 
 
   rangeStorageValue.innerHTML = `${inputStorage.value} GB`;
+  rangeTransferValue.innerHTML = `${inputTransfer.value} GB`;
 
 
   backblazeColumnPrice.innerHTML = `$ ${
@@ -125,8 +130,19 @@ function calcRange() {
     (vultrFinalCost < vultrMinPayment ? vultrMinPayment : vultrFinalCost).toFixed(2)
   }`;
 
-  valueBackvlaze.style.width = `${backblazeFinalCost}%`;
-  valueBunny.style.width = `${bunnyFinalCost < bunnyMaxPayment ? bunnyFinalCost : bunnyMaxPayment}%`;
+  if ( window.screen.width > 450 ) {
+    valueBackvlaze.style.width = `${backblazeFinalCost}%`;
+    valueBunny.style.width = `${bunnyFinalCost < bunnyMaxPayment ? bunnyFinalCost : bunnyMaxPayment}%`;
+    valueScaleway.style.width = `${scalewayFinalCost}%`;
+    valueVultr.style.width = `${vultrFinalCost}%`;
+  } 
+  
+  if (window.screen.width < 450 ) {
+    valueBackvlaze.style.height = `${backblazeFinalCost}%`;
+    valueBunny.style.height = `${bunnyFinalCost < bunnyMaxPayment ? bunnyFinalCost : bunnyMaxPayment}%`;
+    valueScaleway.style.height = `${scalewayFinalCost}%`;
+    valueVultr.style.height = `${vultrFinalCost}%`;
+  }
 }
 
 calcRange();
