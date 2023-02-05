@@ -41,9 +41,8 @@ const backblazeColumnPrice = document.querySelector('.backvlaze__price'),
       scalewayColumnPrice = document.querySelector('.scaleway__price'),
       vultrColumnPrice = document.querySelector('.vultr__price');
 
-let screenWidth = window.screen.width < 450 ? 'height' : 'width';
+const columnPrecend = document.querySelectorAll('.graph__percent');
 
-console.log( screenWidth );
 
 
 
@@ -54,6 +53,7 @@ inputscalewaySingleValue.value = scalewayStorageSinglePrice;
 
 
 
+let screenWidth = window.screen.width;
 
 let backblazeStorageCost = 0;
 let backblazeFinalCost = 0;
@@ -106,6 +106,8 @@ inputTransfer.oninput = function() {
 
 
 function calcRange() {
+  screenWidth = window.screen.width;
+
   backblazeFinalCost = inputStorage.value * backblazeStoragePrice + inputTransfer.value * backblazeTransferPrice;
   
   bunnyFinalCost = inputStorage.value * bunnyInputPrice + inputTransfer.value * bunnyTransferPrice;
@@ -131,18 +133,56 @@ function calcRange() {
   }`;
 
   if ( window.screen.width > 450 ) {
-    valueBackvlaze.style.width = `${backblazeFinalCost}%`;
+    valueBackvlaze.style.width = `${
+      backblazeFinalCost < backblazeMinPayment ? backblazeMinPayment : backblazeFinalCost
+    }%`;
     valueBunny.style.width = `${bunnyFinalCost < bunnyMaxPayment ? bunnyFinalCost : bunnyMaxPayment}%`;
     valueScaleway.style.width = `${scalewayFinalCost}%`;
-    valueVultr.style.width = `${vultrFinalCost}%`;
+    valueVultr.style.width = `${vultrFinalCost < vultrMinPayment ? vultrMinPayment : vultrFinalCost}%`;
   } 
   
   if (window.screen.width < 450 ) {
-    valueBackvlaze.style.height = `${backblazeFinalCost}%`;
+    // valueBackvlaze.style.height = `${backblazeFinalCost}%`;
+    // valueBunny.style.height = `${bunnyFinalCost < bunnyMaxPayment ? bunnyFinalCost : bunnyMaxPayment}%`;
+    // valueScaleway.style.height = `${scalewayFinalCost}%`;
+    // valueVultr.style.height = `${vultrFinalCost}%`;
+    valueBackvlaze.style.height = `${
+      backblazeFinalCost < backblazeMinPayment ? backblazeMinPayment : backblazeFinalCost
+    }%`;
     valueBunny.style.height = `${bunnyFinalCost < bunnyMaxPayment ? bunnyFinalCost : bunnyMaxPayment}%`;
     valueScaleway.style.height = `${scalewayFinalCost}%`;
-    valueVultr.style.height = `${vultrFinalCost}%`;
+    valueVultr.style.height = `${vultrFinalCost < vultrMinPayment ? vultrMinPayment : vultrFinalCost}%`;
   }
+
+  changeColor()
 }
 
+
+function changeColor() {
+  
+  let arr = [];
+  let indexMinColumn = 0;
+  let windowScreenWidthOrHeight = 'width';
+
+  if ( window.screen.width < 450 ) {
+    windowScreenWidthOrHeight = 'height';
+  } else {
+    windowScreenWidthOrHeight = 'width';
+  }
+
+  columnPrecend.forEach((column) => {
+    // arr.push(+column.style.width.substr(0, column.style.width.length - 1));
+    arr.push(+column.style[windowScreenWidthOrHeight].substr(0, column.style[windowScreenWidthOrHeight].length - 1));
+    column.style.backgroundColor = '#bdbdbd';
+    column.style.borderColor = '#939292';
+  });
+
+  indexMinColumn = arr.indexOf(Math.min.apply(null, arr));
+
+  columnPrecend[indexMinColumn].style.backgroundColor = '#c24cd7';
+  columnPrecend[indexMinColumn].style.borderColor = '#a539b9';
+}
+
+
 calcRange();
+
