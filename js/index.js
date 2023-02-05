@@ -148,6 +148,8 @@ function calcRange() {
 
 function changeColor() {
   
+  const colorColumns = ['red', 'orange','blueviolet', 'black'];
+  const colorBorderColumns = ['#cd0101', '#db8e01','#590e9f', 'black'];
   let arr = [];
   let indexMinColumn = 0;
 
@@ -159,8 +161,8 @@ function changeColor() {
 
   indexMinColumn = arr.indexOf(Math.min.apply(null, arr));
 
-  columnPrecend[indexMinColumn].style.backgroundColor = '#c24cd7';
-  columnPrecend[indexMinColumn].style.borderColor = '#a539b9';
+  columnPrecend[indexMinColumn].style.backgroundColor = colorColumns[indexMinColumn];
+  columnPrecend[indexMinColumn].style.borderColor = colorBorderColumns[indexMinColumn];
 }
 
 
