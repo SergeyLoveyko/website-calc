@@ -131,27 +131,15 @@ function calcRange() {
   rangeTransferValue.innerHTML = `${inputTransfer.value} GB`;
 
 
-  backblazeColumnPrice.innerHTML = `$ ${
-    // (backblazeFinalCost < backblazeMinPayment ? backblazeMinPayment : backblazeFinalCost).toFixed(2)
-    (backblazeColumnPriceValue).toFixed(2)
-  }`;
-  // bunnyColumnPrice.innerHTML = `$ ${(bunnyFinalCost < bunnyMaxPayment ? bunnyFinalCost : bunnyMaxPayment).toFixed(2)}`;
+  backblazeColumnPrice.innerHTML = `$ ${(backblazeColumnPriceValue).toFixed(2)}`;
   bunnyColumnPrice.innerHTML = `$ ${(bunnyColumnPriceValue).toFixed(2)}`;
   scalewayColumnPrice.innerHTML = `$ ${(scalewayFinalCost).toFixed(2)}`;
-  vultrColumnPrice.innerHTML = `$ ${
-    // (vultrFinalCost < vultrMinPayment ? vultrMinPayment : vultrFinalCost).toFixed(2)
-    (vultrColumnPriceValue).toFixed(2)
-  }`;
+  vultrColumnPrice.innerHTML = `$ ${(vultrColumnPriceValue).toFixed(2)}`;
 
 
-  valueBackvlaze.style[colomnGrowthDirection] = `${
-    // backblazeFinalCost < backblazeMinPayment ? backblazeMinPayment : backblazeFinalCost
-    backblazeColumnPriceValue
-  }%`;
-  // valueBunny.style[colomnGrowthDirection] = `${bunnyFinalCost < bunnyMaxPayment ? bunnyFinalCost : bunnyMaxPayment}%`;
+  valueBackvlaze.style[colomnGrowthDirection] = `${backblazeColumnPriceValue}%`;
   valueBunny.style[colomnGrowthDirection] = `${bunnyColumnPriceValue}%`;
   valueScaleway.style[colomnGrowthDirection] = `${scalewayFinalCost}%`;
-  // valueVultr.style[colomnGrowthDirection] = `${vultrFinalCost < vultrMinPayment ? vultrMinPayment : vultrFinalCost}%`;
   valueVultr.style[colomnGrowthDirection] = `${vultrColumnPriceValue}%`;
 
   changeColor()
