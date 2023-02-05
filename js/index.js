@@ -45,15 +45,14 @@ const columnPrecend = document.querySelectorAll('.graph__percent');
 
 
 
-
 inputBunnyHDDValue.value = bunnyStorageHDDPrice;
 inputBunnySSDValue.value = bunnyStorageSSDPrice;
 inputscalewayMultiValue.value = scalewayStorageMultiPrice;
 inputscalewaySingleValue.value = scalewayStorageSinglePrice;
 
 
+let colomnGrowthDirection = 'width';
 
-let screenWidth = window.screen.width;
 
 let backblazeStorageCost = 0;
 let backblazeFinalCost = 0;
@@ -106,10 +105,14 @@ inputTransfer.oninput = function() {
 
 
 function calcRange() {
-  screenWidth = window.screen.width;
+
+  if ( window.screen.width < 450 ) {
+    colomnGrowthDirection = 'height';
+  } else {
+    colomnGrowthDirection = 'width';
+  }
 
   backblazeFinalCost = inputStorage.value * backblazeStoragePrice + inputTransfer.value * backblazeTransferPrice;
-  
   bunnyFinalCost = inputStorage.value * bunnyInputPrice + inputTransfer.value * bunnyTransferPrice;
 
   scalewayFinalCost = 
@@ -119,40 +122,37 @@ function calcRange() {
   vultrFinalCost = inputStorage.value * vultrStoragePrice + inputTransfer.value * vultrTransferPrice;
 
 
+  const backblazeColumnPriceValue = backblazeFinalCost < backblazeMinPayment ? backblazeMinPayment : backblazeFinalCost;
+  const bunnyColumnPriceValue = bunnyFinalCost < bunnyMaxPayment ? bunnyFinalCost : bunnyMaxPayment;
+  const vultrColumnPriceValue = vultrFinalCost < vultrMinPayment ? vultrMinPayment : vultrFinalCost;
+
+
   rangeStorageValue.innerHTML = `${inputStorage.value} GB`;
   rangeTransferValue.innerHTML = `${inputTransfer.value} GB`;
 
 
   backblazeColumnPrice.innerHTML = `$ ${
-    (backblazeFinalCost < backblazeMinPayment ? backblazeMinPayment : backblazeFinalCost).toFixed(2)
+    // (backblazeFinalCost < backblazeMinPayment ? backblazeMinPayment : backblazeFinalCost).toFixed(2)
+    (backblazeColumnPriceValue).toFixed(2)
   }`;
-  bunnyColumnPrice.innerHTML = `$ ${(bunnyFinalCost < bunnyMaxPayment ? bunnyFinalCost : bunnyMaxPayment).toFixed(2)}`;
+  // bunnyColumnPrice.innerHTML = `$ ${(bunnyFinalCost < bunnyMaxPayment ? bunnyFinalCost : bunnyMaxPayment).toFixed(2)}`;
+  bunnyColumnPrice.innerHTML = `$ ${(bunnyColumnPriceValue).toFixed(2)}`;
   scalewayColumnPrice.innerHTML = `$ ${(scalewayFinalCost).toFixed(2)}`;
   vultrColumnPrice.innerHTML = `$ ${
-    (vultrFinalCost < vultrMinPayment ? vultrMinPayment : vultrFinalCost).toFixed(2)
+    // (vultrFinalCost < vultrMinPayment ? vultrMinPayment : vultrFinalCost).toFixed(2)
+    (vultrColumnPriceValue).toFixed(2)
   }`;
 
-  if ( window.screen.width > 450 ) {
-    valueBackvlaze.style.width = `${
-      backblazeFinalCost < backblazeMinPayment ? backblazeMinPayment : backblazeFinalCost
-    }%`;
-    valueBunny.style.width = `${bunnyFinalCost < bunnyMaxPayment ? bunnyFinalCost : bunnyMaxPayment}%`;
-    valueScaleway.style.width = `${scalewayFinalCost}%`;
-    valueVultr.style.width = `${vultrFinalCost < vultrMinPayment ? vultrMinPayment : vultrFinalCost}%`;
-  } 
-  
-  if (window.screen.width < 450 ) {
-    // valueBackvlaze.style.height = `${backblazeFinalCost}%`;
-    // valueBunny.style.height = `${bunnyFinalCost < bunnyMaxPayment ? bunnyFinalCost : bunnyMaxPayment}%`;
-    // valueScaleway.style.height = `${scalewayFinalCost}%`;
-    // valueVultr.style.height = `${vultrFinalCost}%`;
-    valueBackvlaze.style.height = `${
-      backblazeFinalCost < backblazeMinPayment ? backblazeMinPayment : backblazeFinalCost
-    }%`;
-    valueBunny.style.height = `${bunnyFinalCost < bunnyMaxPayment ? bunnyFinalCost : bunnyMaxPayment}%`;
-    valueScaleway.style.height = `${scalewayFinalCost}%`;
-    valueVultr.style.height = `${vultrFinalCost < vultrMinPayment ? vultrMinPayment : vultrFinalCost}%`;
-  }
+
+  valueBackvlaze.style[colomnGrowthDirection] = `${
+    // backblazeFinalCost < backblazeMinPayment ? backblazeMinPayment : backblazeFinalCost
+    backblazeColumnPriceValue
+  }%`;
+  // valueBunny.style[colomnGrowthDirection] = `${bunnyFinalCost < bunnyMaxPayment ? bunnyFinalCost : bunnyMaxPayment}%`;
+  valueBunny.style[colomnGrowthDirection] = `${bunnyColumnPriceValue}%`;
+  valueScaleway.style[colomnGrowthDirection] = `${scalewayFinalCost}%`;
+  // valueVultr.style[colomnGrowthDirection] = `${vultrFinalCost < vultrMinPayment ? vultrMinPayment : vultrFinalCost}%`;
+  valueVultr.style[colomnGrowthDirection] = `${vultrColumnPriceValue}%`;
 
   changeColor()
 }
@@ -162,17 +162,9 @@ function changeColor() {
   
   let arr = [];
   let indexMinColumn = 0;
-  let windowScreenWidthOrHeight = 'width';
-
-  if ( window.screen.width < 450 ) {
-    windowScreenWidthOrHeight = 'height';
-  } else {
-    windowScreenWidthOrHeight = 'width';
-  }
 
   columnPrecend.forEach((column) => {
-    // arr.push(+column.style.width.substr(0, column.style.width.length - 1));
-    arr.push(+column.style[windowScreenWidthOrHeight].substr(0, column.style[windowScreenWidthOrHeight].length - 1));
+    arr.push(+column.style[colomnGrowthDirection].substr(0, column.style[colomnGrowthDirection].length - 1));
     column.style.backgroundColor = '#bdbdbd';
     column.style.borderColor = '#939292';
   });
