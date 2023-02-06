@@ -106,7 +106,7 @@ inputTransfer.oninput = function() {
 
 function calcRange() {
 
-  if ( window.screen.width < 450 ) {
+  if ( window.screen.width < 550 ) {
     colomnGrowthDirection = 'height';
   } else {
     colomnGrowthDirection = 'width';
